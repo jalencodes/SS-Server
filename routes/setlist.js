@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
     res.send('Let\'s make a setlist!');
 })
 
-router.get('/search/artist/', async (req, res) => {
-    if (req.body.artist) {
-        const artistName = req.body.artist;
+router.get('/search/artist', async (req, res) => {
+    if (req.query.name) {
+        const artistName = req.query.name;
         console.log(artistName);
         try {
             const artists = await searchArtist(artistName);
@@ -24,6 +24,10 @@ router.get('/search/artist/', async (req, res) => {
     else {
         res.status(400).send('Please provide an artist name');
     }
+})
+
+router.get('/search/setlists/:mbid', async (req, res) => {
+    
 })
 
 

@@ -12,8 +12,7 @@ export async function searchArtist(artistName)
 {
     try
     {
-        let queryReadyName  = artistName.replace(' ', '+')
-        let requestURL      = `${baseURL}search/artists?artistName=${queryReadyName}&sort=relevance`
+        const requestURL    = `${baseURL}search/artists?artistName=${artistName}&sort=relevance`
         const response      = await axios.get(requestURL, {headers:header})
         const artists       = response.data.artist
         return artists;
@@ -21,5 +20,24 @@ export async function searchArtist(artistName)
     catch (error) {
         console.log(error);
     }
+}
+
+export async function getArtistConcerts(mbid)
+{
+    try 
+    {
+        const requestURL    = `${baseURL}artist/${mbid}/setlists`
+        const response      = await axios.get(requestURL, {headers:header})
+        const concert       = response.data.setlist
+        return concert;
+    } 
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export function formatConcertData(concert)
+{
+
 }
 
