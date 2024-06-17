@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import setlistRouter from './routes/setlist.js';
+import spotifyRouter from './routes/spotify.js';
 
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/setlist', setlistRouter);
+app.use('/api/spotify', spotifyRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
