@@ -3,12 +3,13 @@ import dotenv from 'dotenv';
 import querystring from "querystring"; 
 import axios from 'axios';
 import SpotifyWebApi from 'spotify-web-api-node';
-import { log } from 'console';
+import cors from 'cors';
 
 dotenv.config({path: "../.env"});
 const clientID = process.env.SPOTIFY_CLIENT_ID
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
-const redirectURI = "http://localhost:8888/api/spotify/callback"
+// const redirectURI = "http://localhost:8888/api/spotify/callback"
+const redirectURI = "http://localhost:5174/connectSpotify"
 const router = express.Router();
 
 
@@ -21,13 +22,10 @@ router.get('/', (req, res) => {
 })
 
 
-
-
-
 router.get('/login', (req, res) => {
     const state = generateRandomString(16)
     const scope = 'user-read-private user-read-email playlist-read-private playlist-modify-private playlist-modify-public user-library-read'
-    res.redirect('https://accounts.spotify.com/authorize?' +
+    res.send('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
       client_id: clientID,
@@ -45,17 +43,16 @@ async function getToken(spotifyAPI, code)
     const accessToken = tokenData.body
     return accessToken
 }
-router.get('/callback', async (req, res) =>  {
+router.get('/token', async (req, res) =>  {
 
     const code = req.query.code || null;
-    const state = req.query.state || null;
     const credentials = {
         clientId: clientID,
         clientSecret: clientSecret,
         redirectUri: redirectURI
     }
 
-    if(state) {
+    if(code) {
         const spotifyApi = new SpotifyWebApi(credentials)
         const accessToken = await getToken(spotifyApi, code)
         res.send(accessToken)
@@ -63,6 +60,7 @@ router.get('/callback', async (req, res) =>  {
     {
         res.send({error: 'Invalid data'})
     }
+    
   });
 
 
