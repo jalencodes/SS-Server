@@ -35,9 +35,3 @@ export async function getArtistConcerts(mbid)
         console.log(error);
     }
 }
-
-export function formatConcertData(concert)
-{
-
-}
-

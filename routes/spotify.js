@@ -8,8 +8,8 @@ import cors from 'cors';
 dotenv.config({path: "../.env"});
 const clientID = process.env.SPOTIFY_CLIENT_ID
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
-// const redirectURI = "http://localhost:8888/api/spotify/callback"
 const redirectURI = "http://localhost:5174/connectSpotify"
+const apiURL = "https://api.spotify.com/v1"
 const router = express.Router();
 
 
@@ -62,6 +62,24 @@ router.get('/token', async (req, res) =>  {
     }
     
   });
+
+
+// router.get('/me', async (req, res) => {
+//     if (req.query.token) {
+//         const headers = { 'Authorization': `Bearer ${req.query.token}` }
+//         const requestURL = `${apiURL}/me`
+//         const response = await axios.get(requestURL, { headers: headers })
+//         const data = response.data
+//         res.send(data)
+//     }
+// })
+
+// router.post('/playlist', async(req, res) => {
+//     if(req.query.token && req.query.name) {
+
+//     }
+        
+// })
 
 
 
