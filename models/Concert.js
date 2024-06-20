@@ -5,13 +5,13 @@ export const concertSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
-        type: Date,
-        required: true
-    },
     setlist: {
         type: [String],
-        required: true
+        required: false
+    },
+    date: {
+        type: String,
+        required: false
     }
 })
 

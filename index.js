@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/setlist', setlistRouter);
-app.use('/api/spotify', spotifyRouter);
+// app.use('/api/spotify', spotifyRouter);
 app.use('/api/user', userRouter);
 
 app.listen(process.env.PORT, () => {
